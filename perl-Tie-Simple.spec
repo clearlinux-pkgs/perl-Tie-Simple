@@ -4,7 +4,7 @@
 #
 Name     : perl-Tie-Simple
 Version  : 1.04
-Release  : 2
+Release  : 3
 URL      : https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libt/libtie-simple-perl/libtie-simple-perl_1.04-1.debian.tar.xz
@@ -79,12 +79,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple/Array.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple/Handle.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple/Hash.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple/Scalar.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Tie/Simple/Util.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple/Array.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple/Handle.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple/Hash.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple/Scalar.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Tie/Simple/Util.pm
 
 %files dev
 %defattr(-,root,root,-)
