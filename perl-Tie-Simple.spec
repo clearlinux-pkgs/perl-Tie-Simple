@@ -4,7 +4,7 @@
 #
 Name     : perl-Tie-Simple
 Version  : 1.04
-Release  : 9
+Release  : 10
 URL      : https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libt/libtie-simple-perl/libtie-simple-perl_1.04-1.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : 'Variable ties made much easier: much, much, much easier...'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Tie-Simple-license = %{version}-%{release}
+Requires: perl-Tie-Simple-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -23,6 +24,7 @@ Variable ties made much easier: much, much, much easier...
 Summary: dev components for the perl-Tie-Simple package.
 Group: Development
 Provides: perl-Tie-Simple-devel = %{version}-%{release}
+Requires: perl-Tie-Simple = %{version}-%{release}
 
 %description dev
 dev components for the perl-Tie-Simple package.
@@ -36,18 +38,28 @@ Group: Default
 license components for the perl-Tie-Simple package.
 
 
+%package perl
+Summary: perl components for the perl-Tie-Simple package.
+Group: Default
+Requires: perl-Tie-Simple = %{version}-%{release}
+
+%description perl
+perl components for the perl-Tie-Simple package.
+
+
 %prep
 %setup -q -n Tie-Simple-1.04
-cd ..
-%setup -q -T -D -n Tie-Simple-1.04 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libtie-simple-perl_1.04-1.debian.tar.xz
+cd %{_builddir}/Tie-Simple-1.04
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Tie-Simple-1.04/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Tie-Simple-1.04/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -57,7 +69,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -66,7 +78,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Tie-Simple
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Tie-Simple/LICENSE
+cp %{_builddir}/Tie-Simple-1.04/LICENSE %{buildroot}/usr/share/package-licenses/perl-Tie-Simple/a8a0309a04c58e6cfc53cc5980833f4be93fe5ef
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -79,12 +91,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple/Array.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple/Handle.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple/Hash.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple/Scalar.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Tie/Simple/Util.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -97,4 +103,13 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Tie-Simple/LICENSE
+/usr/share/package-licenses/perl-Tie-Simple/a8a0309a04c58e6cfc53cc5980833f4be93fe5ef
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple/Array.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple/Handle.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple/Hash.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple/Scalar.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Tie/Simple/Util.pm
